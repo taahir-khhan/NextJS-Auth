@@ -1,4 +1,6 @@
 "use client";
+import { Footer, Header, Main } from "@/components";
+
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,17 +10,6 @@ import toast, { Toaster } from "react-hot-toast";
 export default function ProfilePage() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
-
-  const logout = async () => {
-    try {
-      await axios.get("/api/users/logout");
-      toast.success("Logged out successfully");
-      router.push("/login");
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error("Logout failed");
-    }
-  };
 
   const getUserDetails = async () => {
     const res = await axios.get("/api/users/me");
@@ -30,31 +21,26 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center flex-col gap-5">
+    <div className="min-h-screen flex flex-col bg-black">
       <Toaster position="top-right" reverseOrder={false} />
+      <Header />
+      <div className="flex-1 flex flex-col gap-5 items-center justify-center px-4 text-center space-y-8">
+        <p className="text-7xl font-mono">Welcome to your profile page</p>
 
-      <h1 className="text-5xl">Profile</h1>
-      <p className="underline text-2xl">Profile page section</p>
-
-      <button
-        onClick={logout}
-        className="bg-white hover:bg-slate-300 text-red-600 font-bold px-5 py-2 rounded-lg mt-2 mx-auto"
-      >
-        LogOut
-      </button>
-
-      <p>
         {userId === "" ? (
-          "Nothing"
+          <span className="bg-white text-black hover:scale-110 p-4 rounded-md font-bold cursor-pointer ">
+            No User ID Found
+          </span>
         ) : (
           <Link
-            className="underline bg-white hover:bg-slate-300 p-2 rounded text-red-600 font-bold"
+            className="bg-white text-black p-4 rounded-md font-bold cursor-pointer hover:scale-110 transition-transform duration-300"
             href={`/profile/${userId}`}
           >
-            {userId}
+            {userId} <span className="pl-2">→</span>
           </Link>
         )}
-      </p>
+      </div>
+      <Footer />
     </div>
   );
 }

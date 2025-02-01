@@ -1,14 +1,12 @@
-import Link from "next/link";
+"use client";
+import { Footer, Header, Main } from "@/components";
 
 export default function Home() {
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center">
-      <Link
-        className="p-2 bg-white text-red-600 font-bold rounded"
-        href={`/profile`}
-      >
-        Profile
-      </Link>
+    <div className="min-h-screen flex flex-col bg-black">
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }
