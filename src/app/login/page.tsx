@@ -102,6 +102,12 @@ export default function LoginPage() {
               placeholder="••••••••"
             />
           </div>
+          <Link
+            href={`/forgotpassword`}
+            className="text-blue-500 underline font-bold text-left my-2"
+          >
+            Forgot your password ?
+          </Link>
 
           <button
             onClick={onLogin}
