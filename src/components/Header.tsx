@@ -11,7 +11,9 @@ export default function Header() {
     try {
       await axios.get("/api/users/logout");
       toast.success("Logged out successfully");
-      router.push("/login");
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
     } catch (error: any) {
       console.log(error.message);
       toast.error("Logout failed");
@@ -19,6 +21,8 @@ export default function Header() {
   };
   return (
     <header className="flex justify-between items-center px-8 py-6 bg-black border-b border-gray-800">
+      <Toaster position="top-right" reverseOrder={false} />
+
       <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent font-mono">
         NEXTJS
       </h1>

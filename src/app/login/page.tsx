@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,16 +17,14 @@ export default function LoginPage() {
   const onLogin = async () => {
     try {
       setProcessing(true);
-      const response = await axios.post("/api/users/login", user);
-      console.log("Login success", response.data);
-      router.push("/");
+      await axios.post("/api/users/login", user);
+      toast.success("Login Successfully");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
     } catch (error: any) {
       if (error.response) {
-        console.log("Login Failed", error.response.data);
-        console.log("Status", error.response.status);
-        console.log("Headers", error.response.headers);
-      } else if (error.request) {
-        console.log("No response received", error.request);
+        toast.error(error.response.data.error);
       } else {
         console.log("Error", error.message);
       }
@@ -44,6 +43,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
+      <Toaster position="top-right" reverseOrder={false} />
+
       <div className="absolute inset-0 animate-gradient bg-gradient-to-r from-black via-gray-900 to-black  bg-[length:400%_400%]"></div>
 
       <div className="relative bg-white p-8 rounded-2xl shadow-2xl border border-gray-300 hover:shadow-3xl transition-all duration-300 min-w-[90%] md:min-w-[450px] z-10">
