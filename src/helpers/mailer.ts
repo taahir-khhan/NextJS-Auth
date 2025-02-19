@@ -48,7 +48,7 @@ export const sendMail = async ({
       <p style="color: gray; font-size: 16px; margin-bottom: 10px;">
         Click
         <a
-          href="https://${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "resetpassword"}?token=${hashedToken}"
+          href="${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "resetpassword"}?token=${hashedToken}"
           style="color: blue; font-weight: 600; text-decoration: underline;"
         >
           HERE
